@@ -1,1 +1,8 @@
 protos.js
+bun.lock
+node_modules
+package.json
+protos.ts
+README.md
+tsconfig.json
+.idea
