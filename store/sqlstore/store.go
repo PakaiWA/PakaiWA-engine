@@ -19,7 +19,7 @@ import (
 	"time"
 
 	"github.com/pakaiwa/pakaiwa/util/dbutil"
-	"go.mau.fi/util/exsync"
+	"github.com/pakaiwa/pakaiwa/util/exsync"
 
 	"github.com/pakaiwa/pakaiwa/store"
 	"github.com/pakaiwa/pakaiwa/types"

@@ -15,7 +15,7 @@ import (
 	"strings"
 	"time"
 
-	"go.mau.fi/util/exsync"
+	"github.com/pakaiwa/pakaiwa/util/exsync"
 )
 
 type Dialect int
