@@ -6,3 +6,4 @@ protos.ts
 README.md
 tsconfig.json
 .idea
+proto.go
