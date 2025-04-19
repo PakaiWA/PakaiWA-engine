@@ -1,16 +1,13 @@
-# whatsmeow
+# pakaiwa
 [![Go Reference](https://pkg.go.dev/badge/github.com/pakaiwa/pakaiwa.svg)](https://pkg.go.dev/github.com/pakaiwa/pakaiwa)
 
-whatsmeow is a Go library for the WhatsApp web multidevice API.
-
-## Discussion
-Matrix room: [#whatsmeow:maunium.net](https://matrix.to/#/#whatsmeow:maunium.net)
+pakaiwa is a Go library for the WhatsApp web multidevice API.
 
 For questions about the WhatsApp protocol (like how to send a specific type of
 message), you can also use the [WhatsApp protocol Q&A] section on GitHub
 discussions.
 
-[WhatsApp protocol Q&A]: https://github.com/tulir/whatsmeow/discussions/categories/whatsapp-protocol-q-a
+[WhatsApp protocol Q&A]: https://github.com/pakaiwa/pakaiwa/discussions/categories/whatsapp-protocol-q-a
 
 ## Usage
 The [godoc](https://pkg.go.dev/github.com/pakaiwa/pakaiwa) includes docs for all methods and event types.
@@ -33,3 +30,6 @@ Things that are not yet implemented:
 
 * Sending broadcast list messages (this is not supported on WhatsApp web either)
 * Calls
+
+
+***Original Repo: [https://github.com/tulir/whatsmeow](https://github.com/tulir/whatsmeow)***

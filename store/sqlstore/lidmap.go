@@ -42,15 +42,15 @@ func NewCachedLIDMap(db *dbutil.Database) *CachedLIDMap {
 }
 
 const (
-	deleteExistingLIDMappingQuery = `DELETE FROM whatsmeow_lid_map WHERE (lid<>$1 AND pn=$2)`
+	deleteExistingLIDMappingQuery = `DELETE FROM pakaiwa_lid_map WHERE (lid<>$1 AND pn=$2)`
 	putLIDMappingQuery            = `
-		INSERT INTO whatsmeow_lid_map (lid, pn)
+		INSERT INTO pakaiwa_lid_map (lid, pn)
 		VALUES ($1, $2)
-		ON CONFLICT (lid) DO UPDATE SET pn=excluded.pn WHERE whatsmeow_lid_map.pn<>excluded.pn
+		ON CONFLICT (lid) DO UPDATE SET pn=excluded.pn WHERE pakaiwa_lid_map.pn<>excluded.pn
 	`
-	getLIDForPNQuery       = `SELECT lid FROM whatsmeow_lid_map WHERE pn=$1`
-	getPNForLIDQuery       = `SELECT pn FROM whatsmeow_lid_map WHERE lid=$1`
-	getAllLIDMappingsQuery = `SELECT lid, pn FROM whatsmeow_lid_map`
+	getLIDForPNQuery       = `SELECT lid FROM pakaiwa_lid_map WHERE pn=$1`
+	getPNForLIDQuery       = `SELECT pn FROM pakaiwa_lid_map WHERE lid=$1`
+	getAllLIDMappingsQuery = `SELECT lid, pn FROM pakaiwa_lid_map`
 )
 
 func (s *CachedLIDMap) FillCache(ctx context.Context) error {

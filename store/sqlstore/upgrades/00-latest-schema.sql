@@ -1,5 +1,5 @@
 -- v0 -> v8 (compatible with v8+): Latest schema
-CREATE TABLE whatsmeow_device (
+CREATE TABLE pakaiwa_device (
 	jid TEXT PRIMARY KEY,
 	lid TEXT,
 
@@ -25,45 +25,45 @@ CREATE TABLE whatsmeow_device (
 	push_name     TEXT NOT NULL DEFAULT ''
 );
 
-CREATE TABLE whatsmeow_identity_keys (
+CREATE TABLE pakaiwa_identity_keys (
 	our_jid  TEXT,
 	their_id TEXT,
 	identity bytea NOT NULL CHECK ( length(identity) = 32 ),
 
 	PRIMARY KEY (our_jid, their_id),
-	FOREIGN KEY (our_jid) REFERENCES whatsmeow_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE whatsmeow_pre_keys (
+CREATE TABLE pakaiwa_pre_keys (
 	jid      TEXT,
 	key_id   INTEGER          CHECK ( key_id >= 0 AND key_id < 16777216 ),
 	key      bytea   NOT NULL CHECK ( length(key) = 32 ),
 	uploaded BOOLEAN NOT NULL,
 
 	PRIMARY KEY (jid, key_id),
-	FOREIGN KEY (jid) REFERENCES whatsmeow_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE whatsmeow_sessions (
+CREATE TABLE pakaiwa_sessions (
 	our_jid  TEXT,
 	their_id TEXT,
 	session  bytea,
 
 	PRIMARY KEY (our_jid, their_id),
-	FOREIGN KEY (our_jid) REFERENCES whatsmeow_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE whatsmeow_sender_keys (
+CREATE TABLE pakaiwa_sender_keys (
 	our_jid    TEXT,
 	chat_id    TEXT,
 	sender_id  TEXT,
 	sender_key bytea NOT NULL,
 
 	PRIMARY KEY (our_jid, chat_id, sender_id),
-	FOREIGN KEY (our_jid) REFERENCES whatsmeow_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE whatsmeow_app_state_sync_keys (
+CREATE TABLE pakaiwa_app_state_sync_keys (
 	jid         TEXT,
 	key_id      bytea,
 	key_data    bytea  NOT NULL,
@@ -71,20 +71,20 @@ CREATE TABLE whatsmeow_app_state_sync_keys (
 	fingerprint bytea  NOT NULL,
 
 	PRIMARY KEY (jid, key_id),
-	FOREIGN KEY (jid) REFERENCES whatsmeow_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE whatsmeow_app_state_version (
+CREATE TABLE pakaiwa_app_state_version (
 	jid     TEXT,
 	name    TEXT,
 	version BIGINT NOT NULL,
 	hash    bytea  NOT NULL CHECK ( length(hash) = 128 ),
 
 	PRIMARY KEY (jid, name),
-	FOREIGN KEY (jid) REFERENCES whatsmeow_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE whatsmeow_app_state_mutation_macs (
+CREATE TABLE pakaiwa_app_state_mutation_macs (
 	jid       TEXT,
 	name      TEXT,
 	version   BIGINT,
@@ -92,10 +92,10 @@ CREATE TABLE whatsmeow_app_state_mutation_macs (
 	value_mac bytea NOT NULL CHECK ( length(value_mac) = 32 ),
 
 	PRIMARY KEY (jid, name, version, index_mac),
-	FOREIGN KEY (jid, name) REFERENCES whatsmeow_app_state_version(jid, name) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (jid, name) REFERENCES pakaiwa_app_state_version(jid, name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE whatsmeow_contacts (
+CREATE TABLE pakaiwa_contacts (
 	our_jid       TEXT,
 	their_jid     TEXT,
 	first_name    TEXT,
@@ -104,10 +104,10 @@ CREATE TABLE whatsmeow_contacts (
 	business_name TEXT,
 
 	PRIMARY KEY (our_jid, their_jid),
-	FOREIGN KEY (our_jid) REFERENCES whatsmeow_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE whatsmeow_chat_settings (
+CREATE TABLE pakaiwa_chat_settings (
 	our_jid       TEXT,
 	chat_jid      TEXT,
 	muted_until   BIGINT  NOT NULL DEFAULT 0,
@@ -115,10 +115,10 @@ CREATE TABLE whatsmeow_chat_settings (
 	archived      BOOLEAN NOT NULL DEFAULT false,
 
 	PRIMARY KEY (our_jid, chat_jid),
-	FOREIGN KEY (our_jid) REFERENCES whatsmeow_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE whatsmeow_message_secrets (
+CREATE TABLE pakaiwa_message_secrets (
 	our_jid    TEXT,
 	chat_jid   TEXT,
 	sender_jid TEXT,
@@ -126,10 +126,10 @@ CREATE TABLE whatsmeow_message_secrets (
 	key        bytea NOT NULL,
 
 	PRIMARY KEY (our_jid, chat_jid, sender_jid, message_id),
-	FOREIGN KEY (our_jid) REFERENCES whatsmeow_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE whatsmeow_privacy_tokens (
+CREATE TABLE pakaiwa_privacy_tokens (
 	our_jid   TEXT,
 	their_jid TEXT,
 	token     bytea  NOT NULL,
@@ -137,7 +137,7 @@ CREATE TABLE whatsmeow_privacy_tokens (
 	PRIMARY KEY (our_jid, their_jid)
 );
 
-CREATE TABLE whatsmeow_lid_map (
+CREATE TABLE pakaiwa_lid_map (
 	lid TEXT PRIMARY KEY,
 	pn  TEXT UNIQUE NOT NULL
 );

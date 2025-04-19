@@ -34,7 +34,7 @@ var ErrInvalidLength = errors.New("database returned byte array with illegal len
 //
 // When using github.com/lib/pq, you should set
 //
-//	whatsmeow.PostgresArrayWrapper = pq.Array
+//	pakaiwa.PostgresArrayWrapper = pq.Array
 var PostgresArrayWrapper func(any) interface {
 	driver.Valuer
 	sql.Scanner
@@ -70,12 +70,12 @@ var _ store.AllSessionSpecificStores = (*SQLStore)(nil)
 
 const (
 	putIdentityQuery = `
-		INSERT INTO whatsmeow_identity_keys (our_jid, their_id, identity) VALUES ($1, $2, $3)
+		INSERT INTO pakaiwa_identity_keys (our_jid, their_id, identity) VALUES ($1, $2, $3)
 		ON CONFLICT (our_jid, their_id) DO UPDATE SET identity=excluded.identity
 	`
-	deleteAllIdentitiesQuery = `DELETE FROM whatsmeow_identity_keys WHERE our_jid=$1 AND their_id LIKE $2`
-	deleteIdentityQuery      = `DELETE FROM whatsmeow_identity_keys WHERE our_jid=$1 AND their_id=$2`
-	getIdentityQuery         = `SELECT identity FROM whatsmeow_identity_keys WHERE our_jid=$1 AND their_id=$2`
+	deleteAllIdentitiesQuery = `DELETE FROM pakaiwa_identity_keys WHERE our_jid=$1 AND their_id LIKE $2`
+	deleteIdentityQuery      = `DELETE FROM pakaiwa_identity_keys WHERE our_jid=$1 AND their_id=$2`
+	getIdentityQuery         = `SELECT identity FROM pakaiwa_identity_keys WHERE our_jid=$1 AND their_id=$2`
 )
 
 func (s *SQLStore) PutIdentity(address string, key [32]byte) error {
@@ -108,35 +108,35 @@ func (s *SQLStore) IsTrustedIdentity(address string, key [32]byte) (bool, error)
 }
 
 const (
-	getSessionQuery = `SELECT session FROM whatsmeow_sessions WHERE our_jid=$1 AND their_id=$2`
-	hasSessionQuery = `SELECT true FROM whatsmeow_sessions WHERE our_jid=$1 AND their_id=$2`
+	getSessionQuery = `SELECT session FROM pakaiwa_sessions WHERE our_jid=$1 AND their_id=$2`
+	hasSessionQuery = `SELECT true FROM pakaiwa_sessions WHERE our_jid=$1 AND their_id=$2`
 	putSessionQuery = `
-		INSERT INTO whatsmeow_sessions (our_jid, their_id, session) VALUES ($1, $2, $3)
+		INSERT INTO pakaiwa_sessions (our_jid, their_id, session) VALUES ($1, $2, $3)
 		ON CONFLICT (our_jid, their_id) DO UPDATE SET session=excluded.session
 	`
-	deleteAllSessionsQuery = `DELETE FROM whatsmeow_sessions WHERE our_jid=$1 AND their_id LIKE $2`
-	deleteSessionQuery     = `DELETE FROM whatsmeow_sessions WHERE our_jid=$1 AND their_id=$2`
+	deleteAllSessionsQuery = `DELETE FROM pakaiwa_sessions WHERE our_jid=$1 AND their_id LIKE $2`
+	deleteSessionQuery     = `DELETE FROM pakaiwa_sessions WHERE our_jid=$1 AND their_id=$2`
 
 	migratePNToLIDSessionsQuery = `
-		INSERT INTO whatsmeow_sessions (our_jid, their_id, session)
+		INSERT INTO pakaiwa_sessions (our_jid, their_id, session)
 		SELECT our_jid, replace(their_id, $2, $3), session
-		FROM whatsmeow_sessions
+		FROM pakaiwa_sessions
 		WHERE our_jid=$1 AND their_id LIKE $2 || ':%'
 		ON CONFLICT (our_jid, their_id) DO UPDATE SET session=excluded.session
 	`
-	deleteAllIdentityKeysQuery      = `DELETE FROM whatsmeow_identity_keys WHERE our_jid=$1 AND their_id LIKE $2`
+	deleteAllIdentityKeysQuery      = `DELETE FROM pakaiwa_identity_keys WHERE our_jid=$1 AND their_id LIKE $2`
 	migratePNToLIDIdentityKeysQuery = `
-		INSERT INTO whatsmeow_identity_keys (our_jid, their_id, identity)
+		INSERT INTO pakaiwa_identity_keys (our_jid, their_id, identity)
 		SELECT our_jid, replace(their_id, $2, $3), identity
-		FROM whatsmeow_identity_keys
+		FROM pakaiwa_identity_keys
 		WHERE our_jid=$1 AND their_id LIKE $2 || ':%'
 		ON CONFLICT (our_jid, their_id) DO UPDATE SET identity=excluded.identity
 	`
-	deleteAllSenderKeysQuery      = `DELETE FROM whatsmeow_sender_keys WHERE our_jid=$1 AND sender_id LIKE $2`
+	deleteAllSenderKeysQuery      = `DELETE FROM pakaiwa_sender_keys WHERE our_jid=$1 AND sender_id LIKE $2`
 	migratePNToLIDSenderKeysQuery = `
-		INSERT INTO whatsmeow_sender_keys (our_jid, chat_id, sender_id, sender_key)
+		INSERT INTO pakaiwa_sender_keys (our_jid, chat_id, sender_id, sender_key)
 		SELECT our_jid, chat_id, replace(sender_id, $2, $3), sender_key
-		FROM whatsmeow_sender_keys
+		FROM pakaiwa_sender_keys
 		WHERE our_jid=$1 AND sender_id LIKE $2 || ':%'
 		ON CONFLICT (our_jid, chat_id, sender_id) DO UPDATE SET sender_key=excluded.sender_key
 	`
@@ -247,13 +247,13 @@ func (s *SQLStore) MigratePNToLID(ctx context.Context, pn, lid types.JID) error 
 }
 
 const (
-	getLastPreKeyIDQuery        = `SELECT MAX(key_id) FROM whatsmeow_pre_keys WHERE jid=$1`
-	insertPreKeyQuery           = `INSERT INTO whatsmeow_pre_keys (jid, key_id, key, uploaded) VALUES ($1, $2, $3, $4)`
-	getUnuploadedPreKeysQuery   = `SELECT key_id, key FROM whatsmeow_pre_keys WHERE jid=$1 AND uploaded=false ORDER BY key_id LIMIT $2`
-	getPreKeyQuery              = `SELECT key_id, key FROM whatsmeow_pre_keys WHERE jid=$1 AND key_id=$2`
-	deletePreKeyQuery           = `DELETE FROM whatsmeow_pre_keys WHERE jid=$1 AND key_id=$2`
-	markPreKeysAsUploadedQuery  = `UPDATE whatsmeow_pre_keys SET uploaded=true WHERE jid=$1 AND key_id<=$2`
-	getUploadedPreKeyCountQuery = `SELECT COUNT(*) FROM whatsmeow_pre_keys WHERE jid=$1 AND uploaded=true`
+	getLastPreKeyIDQuery        = `SELECT MAX(key_id) FROM pakaiwa_pre_keys WHERE jid=$1`
+	insertPreKeyQuery           = `INSERT INTO pakaiwa_pre_keys (jid, key_id, key, uploaded) VALUES ($1, $2, $3, $4)`
+	getUnuploadedPreKeysQuery   = `SELECT key_id, key FROM pakaiwa_pre_keys WHERE jid=$1 AND uploaded=false ORDER BY key_id LIMIT $2`
+	getPreKeyQuery              = `SELECT key_id, key FROM pakaiwa_pre_keys WHERE jid=$1 AND key_id=$2`
+	deletePreKeyQuery           = `DELETE FROM pakaiwa_pre_keys WHERE jid=$1 AND key_id=$2`
+	markPreKeysAsUploadedQuery  = `UPDATE pakaiwa_pre_keys SET uploaded=true WHERE jid=$1 AND key_id<=$2`
+	getUploadedPreKeyCountQuery = `SELECT COUNT(*) FROM pakaiwa_pre_keys WHERE jid=$1 AND uploaded=true`
 )
 
 func (s *SQLStore) genOnePreKey(id uint32, markUploaded bool) (*keys.PreKey, error) {
@@ -357,9 +357,9 @@ func (s *SQLStore) UploadedPreKeyCount() (count int, err error) {
 }
 
 const (
-	getSenderKeyQuery = `SELECT sender_key FROM whatsmeow_sender_keys WHERE our_jid=$1 AND chat_id=$2 AND sender_id=$3`
+	getSenderKeyQuery = `SELECT sender_key FROM pakaiwa_sender_keys WHERE our_jid=$1 AND chat_id=$2 AND sender_id=$3`
 	putSenderKeyQuery = `
-		INSERT INTO whatsmeow_sender_keys (our_jid, chat_id, sender_id, sender_key) VALUES ($1, $2, $3, $4)
+		INSERT INTO pakaiwa_sender_keys (our_jid, chat_id, sender_id, sender_key) VALUES ($1, $2, $3, $4)
 		ON CONFLICT (our_jid, chat_id, sender_id) DO UPDATE SET sender_key=excluded.sender_key
 	`
 )
@@ -379,13 +379,13 @@ func (s *SQLStore) GetSenderKey(group, user string) (key []byte, err error) {
 
 const (
 	putAppStateSyncKeyQuery = `
-		INSERT INTO whatsmeow_app_state_sync_keys (jid, key_id, key_data, timestamp, fingerprint) VALUES ($1, $2, $3, $4, $5)
+		INSERT INTO pakaiwa_app_state_sync_keys (jid, key_id, key_data, timestamp, fingerprint) VALUES ($1, $2, $3, $4, $5)
 		ON CONFLICT (jid, key_id) DO UPDATE
 			SET key_data=excluded.key_data, timestamp=excluded.timestamp, fingerprint=excluded.fingerprint
-			WHERE excluded.timestamp > whatsmeow_app_state_sync_keys.timestamp
+			WHERE excluded.timestamp > pakaiwa_app_state_sync_keys.timestamp
 	`
-	getAppStateSyncKeyQuery         = `SELECT key_data, timestamp, fingerprint FROM whatsmeow_app_state_sync_keys WHERE jid=$1 AND key_id=$2`
-	getLatestAppStateSyncKeyIDQuery = `SELECT key_id FROM whatsmeow_app_state_sync_keys WHERE jid=$1 ORDER BY timestamp DESC LIMIT 1`
+	getAppStateSyncKeyQuery         = `SELECT key_data, timestamp, fingerprint FROM pakaiwa_app_state_sync_keys WHERE jid=$1 AND key_id=$2`
+	getLatestAppStateSyncKeyIDQuery = `SELECT key_id FROM pakaiwa_app_state_sync_keys WHERE jid=$1 ORDER BY timestamp DESC LIMIT 1`
 )
 
 func (s *SQLStore) PutAppStateSyncKey(id []byte, key store.AppStateSyncKey) error {
@@ -413,15 +413,15 @@ func (s *SQLStore) GetLatestAppStateSyncKeyID() ([]byte, error) {
 
 const (
 	putAppStateVersionQuery = `
-		INSERT INTO whatsmeow_app_state_version (jid, name, version, hash) VALUES ($1, $2, $3, $4)
+		INSERT INTO pakaiwa_app_state_version (jid, name, version, hash) VALUES ($1, $2, $3, $4)
 		ON CONFLICT (jid, name) DO UPDATE SET version=excluded.version, hash=excluded.hash
 	`
-	getAppStateVersionQuery                 = `SELECT version, hash FROM whatsmeow_app_state_version WHERE jid=$1 AND name=$2`
-	deleteAppStateVersionQuery              = `DELETE FROM whatsmeow_app_state_version WHERE jid=$1 AND name=$2`
-	putAppStateMutationMACsQuery            = `INSERT INTO whatsmeow_app_state_mutation_macs (jid, name, version, index_mac, value_mac) VALUES `
-	deleteAppStateMutationMACsQueryPostgres = `DELETE FROM whatsmeow_app_state_mutation_macs WHERE jid=$1 AND name=$2 AND index_mac=ANY($3::bytea[])`
-	deleteAppStateMutationMACsQueryGeneric  = `DELETE FROM whatsmeow_app_state_mutation_macs WHERE jid=$1 AND name=$2 AND index_mac IN `
-	getAppStateMutationMACQuery             = `SELECT value_mac FROM whatsmeow_app_state_mutation_macs WHERE jid=$1 AND name=$2 AND index_mac=$3 ORDER BY version DESC LIMIT 1`
+	getAppStateVersionQuery                 = `SELECT version, hash FROM pakaiwa_app_state_version WHERE jid=$1 AND name=$2`
+	deleteAppStateVersionQuery              = `DELETE FROM pakaiwa_app_state_version WHERE jid=$1 AND name=$2`
+	putAppStateMutationMACsQuery            = `INSERT INTO pakaiwa_app_state_mutation_macs (jid, name, version, index_mac, value_mac) VALUES `
+	deleteAppStateMutationMACsQueryPostgres = `DELETE FROM pakaiwa_app_state_mutation_macs WHERE jid=$1 AND name=$2 AND index_mac=ANY($3::bytea[])`
+	deleteAppStateMutationMACsQueryGeneric  = `DELETE FROM pakaiwa_app_state_mutation_macs WHERE jid=$1 AND name=$2 AND index_mac IN `
+	getAppStateMutationMACQuery             = `SELECT value_mac FROM pakaiwa_app_state_mutation_macs WHERE jid=$1 AND name=$2 AND index_mac=$3 ORDER BY version DESC LIMIT 1`
 )
 
 func (s *SQLStore) PutAppStateVersion(name string, version uint64, hash [128]byte) error {
@@ -519,27 +519,27 @@ func (s *SQLStore) GetAppStateMutationMAC(name string, indexMAC []byte) (valueMA
 
 const (
 	putContactNameQuery = `
-		INSERT INTO whatsmeow_contacts (our_jid, their_jid, first_name, full_name) VALUES ($1, $2, $3, $4)
+		INSERT INTO pakaiwa_contacts (our_jid, their_jid, first_name, full_name) VALUES ($1, $2, $3, $4)
 		ON CONFLICT (our_jid, their_jid) DO UPDATE SET first_name=excluded.first_name, full_name=excluded.full_name
 	`
 	putManyContactNamesQuery = `
-		INSERT INTO whatsmeow_contacts (our_jid, their_jid, first_name, full_name)
+		INSERT INTO pakaiwa_contacts (our_jid, their_jid, first_name, full_name)
 		VALUES %s
 		ON CONFLICT (our_jid, their_jid) DO UPDATE SET first_name=excluded.first_name, full_name=excluded.full_name
 	`
 	putPushNameQuery = `
-		INSERT INTO whatsmeow_contacts (our_jid, their_jid, push_name) VALUES ($1, $2, $3)
+		INSERT INTO pakaiwa_contacts (our_jid, their_jid, push_name) VALUES ($1, $2, $3)
 		ON CONFLICT (our_jid, their_jid) DO UPDATE SET push_name=excluded.push_name
 	`
 	putBusinessNameQuery = `
-		INSERT INTO whatsmeow_contacts (our_jid, their_jid, business_name) VALUES ($1, $2, $3)
+		INSERT INTO pakaiwa_contacts (our_jid, their_jid, business_name) VALUES ($1, $2, $3)
 		ON CONFLICT (our_jid, their_jid) DO UPDATE SET business_name=excluded.business_name
 	`
 	getContactQuery = `
-		SELECT first_name, full_name, push_name, business_name FROM whatsmeow_contacts WHERE our_jid=$1 AND their_jid=$2
+		SELECT first_name, full_name, push_name, business_name FROM pakaiwa_contacts WHERE our_jid=$1 AND their_jid=$2
 	`
 	getAllContactsQuery = `
-		SELECT their_jid, first_name, full_name, push_name, business_name FROM whatsmeow_contacts WHERE our_jid=$1
+		SELECT their_jid, first_name, full_name, push_name, business_name FROM pakaiwa_contacts WHERE our_jid=$1
 	`
 )
 
@@ -723,11 +723,11 @@ func (s *SQLStore) GetAllContacts() (map[types.JID]types.ContactInfo, error) {
 
 const (
 	putChatSettingQuery = `
-		INSERT INTO whatsmeow_chat_settings (our_jid, chat_jid, %[1]s) VALUES ($1, $2, $3)
+		INSERT INTO pakaiwa_chat_settings (our_jid, chat_jid, %[1]s) VALUES ($1, $2, $3)
 		ON CONFLICT (our_jid, chat_jid) DO UPDATE SET %[1]s=excluded.%[1]s
 	`
 	getChatSettingsQuery = `
-		SELECT muted_until, pinned, archived FROM whatsmeow_chat_settings WHERE our_jid=$1 AND chat_jid=$2
+		SELECT muted_until, pinned, archived FROM pakaiwa_chat_settings WHERE our_jid=$1 AND chat_jid=$2
 	`
 )
 
@@ -768,12 +768,12 @@ func (s *SQLStore) GetChatSettings(chat types.JID) (settings types.LocalChatSett
 
 const (
 	putMsgSecret = `
-		INSERT INTO whatsmeow_message_secrets (our_jid, chat_jid, sender_jid, message_id, key)
+		INSERT INTO pakaiwa_message_secrets (our_jid, chat_jid, sender_jid, message_id, key)
 		VALUES ($1, $2, $3, $4, $5)
 		ON CONFLICT (our_jid, chat_jid, sender_jid, message_id) DO NOTHING
 	`
 	getMsgSecret = `
-		SELECT key FROM whatsmeow_message_secrets WHERE our_jid=$1 AND chat_jid=$2 AND sender_jid=$3 AND message_id=$4
+		SELECT key FROM pakaiwa_message_secrets WHERE our_jid=$1 AND chat_jid=$2 AND sender_jid=$3 AND message_id=$4
 	`
 )
 
@@ -807,11 +807,11 @@ func (s *SQLStore) GetMessageSecret(chat, sender types.JID, id types.MessageID) 
 
 const (
 	putPrivacyTokens = `
-		INSERT INTO whatsmeow_privacy_tokens (our_jid, their_jid, token, timestamp)
+		INSERT INTO pakaiwa_privacy_tokens (our_jid, their_jid, token, timestamp)
 		VALUES ($1, $2, $3, $4)
 		ON CONFLICT (our_jid, their_jid) DO UPDATE SET token=EXCLUDED.token, timestamp=EXCLUDED.timestamp
 	`
-	getPrivacyToken = `SELECT token, timestamp FROM whatsmeow_privacy_tokens WHERE our_jid=$1 AND their_jid=$2`
+	getPrivacyToken = `SELECT token, timestamp FROM pakaiwa_privacy_tokens WHERE our_jid=$1 AND their_jid=$2`
 )
 
 func (s *SQLStore) PutPrivacyTokens(tokens ...store.PrivacyToken) error {

@@ -205,7 +205,7 @@ const handlerQueueSize = 2048
 //	if err != nil {
 //		panic(err)
 //	}
-//	client := whatsmeow.NewClient(deviceStore, nil)
+//	client := pakaiwa.NewClient(deviceStore, nil)
 func NewClient(deviceStore *store.Device, log waLog.Logger) *Client {
 	if log == nil {
 		log = waLog.Noop
@@ -630,7 +630,7 @@ func (cli *Client) Logout() error {
 // wrap the whole handler in another struct:
 //
 //	type MyClient struct {
-//		WAClient *whatsmeow.Client
+//		WAClient *pakaiwa.Client
 //		eventHandlerID uint32
 //	}
 //

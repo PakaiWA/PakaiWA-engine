@@ -25,7 +25,7 @@ import (
 	waLog "github.com/pakaiwa/pakaiwa/util/log"
 )
 
-// Container is a wrapper for a SQL database that can contain multiple whatsmeow sessions.
+// Container is a wrapper for a SQL database that can contain multiple pakaiwa sessions.
 type Container struct {
 	db     *dbutil.Database
 	log    waLog.Logger
@@ -83,7 +83,7 @@ func NewWithDB(db *sql.DB, dialect string, log waLog.Logger) *Container {
 		panic(err)
 	}
 	wrapped.UpgradeTable = upgrades.Table
-	wrapped.VersionTable = "whatsmeow_version"
+	wrapped.VersionTable = "pakaiwa_version"
 	return NewWithWrappedDB(wrapped, log)
 }
 
@@ -118,7 +118,7 @@ SELECT jid, lid, registration_id, noise_key, identity_key,
        signed_pre_key, signed_pre_key_id, signed_pre_key_sig,
        adv_key, adv_details, adv_account_sig, adv_account_sig_key, adv_device_sig,
        platform, business_name, push_name, facebook_uuid
-FROM whatsmeow_device
+FROM pakaiwa_device
 `
 
 const getDeviceQuery = getAllDevicesQuery + " WHERE jid=$1"
@@ -202,7 +202,7 @@ func (c *Container) GetDevice(jid types.JID) (*store.Device, error) {
 
 const (
 	insertDeviceQuery = `
-		INSERT INTO whatsmeow_device (jid, lid, registration_id, noise_key, identity_key,
+		INSERT INTO pakaiwa_device (jid, lid, registration_id, noise_key, identity_key,
 									  signed_pre_key, signed_pre_key_id, signed_pre_key_sig,
 									  adv_key, adv_details, adv_account_sig, adv_account_sig_key, adv_device_sig,
 									  platform, business_name, push_name, facebook_uuid)
@@ -213,7 +213,7 @@ const (
 				business_name=excluded.business_name,
 				push_name=excluded.push_name
 	`
-	deleteDeviceQuery = `DELETE FROM whatsmeow_device WHERE jid=$1`
+	deleteDeviceQuery = `DELETE FROM pakaiwa_device WHERE jid=$1`
 )
 
 // NewDevice creates a new device in this database.
