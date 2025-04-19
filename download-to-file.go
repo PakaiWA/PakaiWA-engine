@@ -17,7 +17,7 @@ import (
 	"strings"
 	"time"
 
-	"go.mau.fi/util/fallocate"
+	"github.com/pakaiwa/pakaiwa/util/fallocate"
 	"github.com/pakaiwa/pakaiwa/util/retryafter"
 
 	"github.com/pakaiwa/pakaiwa/proto/waMediaTransport"
