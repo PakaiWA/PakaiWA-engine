@@ -3,7 +3,7 @@
 //go:generate go run internals_generate.go
 //go:generate goimports -local github.com/pakaiwa/pakaiwa -w internals.go
 
-package whatsmeow
+package pakaiwa
 
 import (
 	"context"
