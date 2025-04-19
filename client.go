@@ -20,7 +20,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	"go.mau.fi/util/random"
+	"github.com/pakaiwa/pakaiwa/util/random"
 	"golang.org/x/net/proxy"
 
 	"github.com/pakaiwa/pakaiwa/appstate"

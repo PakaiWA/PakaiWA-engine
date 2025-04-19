@@ -10,7 +10,7 @@ import (
 	"context"
 	"encoding/base64"
 
-	"go.mau.fi/util/random"
+	"github.com/pakaiwa/pakaiwa/util/random"
 
 	waBinary "github.com/pakaiwa/pakaiwa/binary"
 	"github.com/pakaiwa/pakaiwa/types"

@@ -9,7 +9,7 @@ package keys
 
 import (
 	"go.mau.fi/libsignal/ecc"
-	"go.mau.fi/util/random"
+	"github.com/pakaiwa/pakaiwa/util/random"
 	"golang.org/x/crypto/curve25519"
 )
 

@@ -15,7 +15,7 @@ import (
 	"github.com/pakaiwa/pakaiwa/proto/waCommon"
 	"github.com/pakaiwa/pakaiwa/proto/waE2E"
 
-	"go.mau.fi/util/random"
+	"github.com/pakaiwa/pakaiwa/util/random"
 	"google.golang.org/protobuf/proto"
 
 	"github.com/pakaiwa/pakaiwa/types"

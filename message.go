@@ -21,7 +21,7 @@ import (
 	"go.mau.fi/libsignal/protocol"
 	"go.mau.fi/libsignal/session"
 	"go.mau.fi/libsignal/signalerror"
-	"go.mau.fi/util/random"
+	"github.com/pakaiwa/pakaiwa/util/random"
 	"google.golang.org/protobuf/proto"
 
 	"github.com/pakaiwa/pakaiwa/appstate"

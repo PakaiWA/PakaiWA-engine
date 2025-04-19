@@ -9,7 +9,7 @@ package pakaiwa
 import (
 	"fmt"
 
-	"go.mau.fi/util/random"
+	"github.com/pakaiwa/pakaiwa/util/random"
 	"google.golang.org/protobuf/proto"
 
 	waBinary "github.com/pakaiwa/pakaiwa/binary"

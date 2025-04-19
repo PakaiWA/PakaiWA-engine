@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/pakaiwa/pakaiwa/util/dbutil"
-	"go.mau.fi/util/random"
+	"github.com/pakaiwa/pakaiwa/util/random"
 )
 
 type AbstractMassInsertable[T dbutil.Array] struct {

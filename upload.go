@@ -19,7 +19,7 @@ import (
 	"net/url"
 	"os"
 
-	"go.mau.fi/util/random"
+	"github.com/pakaiwa/pakaiwa/util/random"
 
 	"github.com/pakaiwa/pakaiwa/socket"
 	"github.com/pakaiwa/pakaiwa/util/cbcutil"

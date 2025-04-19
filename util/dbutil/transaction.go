@@ -19,7 +19,7 @@ import (
 	"github.com/rs/zerolog"
 
 	"go.mau.fi/util/exerrors"
-	"go.mau.fi/util/random"
+	"github.com/pakaiwa/pakaiwa/util/random"
 )
 
 var (

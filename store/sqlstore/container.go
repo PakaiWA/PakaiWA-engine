@@ -15,7 +15,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/pakaiwa/pakaiwa/util/dbutil"
-	"go.mau.fi/util/random"
+	"github.com/pakaiwa/pakaiwa/util/random"
 
 	"github.com/pakaiwa/pakaiwa/proto/waAdv"
 	"github.com/pakaiwa/pakaiwa/store"

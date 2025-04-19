@@ -16,7 +16,7 @@ import (
 	"strconv"
 	"strings"
 
-	"go.mau.fi/util/random"
+	"github.com/pakaiwa/pakaiwa/util/random"
 	"golang.org/x/crypto/curve25519"
 	"golang.org/x/crypto/pbkdf2"
 
