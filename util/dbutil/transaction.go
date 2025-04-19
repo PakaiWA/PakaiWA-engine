@@ -18,7 +18,7 @@ import (
 	"github.com/petermattis/goid"
 	"github.com/rs/zerolog"
 
-	"go.mau.fi/util/exerrors"
+	"github.com/pakaiwa/pakaiwa/util/exerrors"
 	"github.com/pakaiwa/pakaiwa/util/random"
 )
 
