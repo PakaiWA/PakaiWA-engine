@@ -15,7 +15,7 @@ import (
 	"slices"
 	"sync"
 
-	"go.mau.fi/util/dbutil"
+	"github.com/pakaiwa/pakaiwa/util/dbutil"
 
 	"github.com/pakaiwa/pakaiwa/store"
 	"github.com/pakaiwa/pakaiwa/types"

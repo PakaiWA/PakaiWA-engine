@@ -18,7 +18,7 @@ import (
 	"sync"
 	"time"
 
-	"go.mau.fi/util/dbutil"
+	"github.com/pakaiwa/pakaiwa/util/dbutil"
 	"go.mau.fi/util/exsync"
 
 	"github.com/pakaiwa/pakaiwa/store"

@@ -14,7 +14,7 @@ import (
 	mathRand "math/rand/v2"
 
 	"github.com/google/uuid"
-	"go.mau.fi/util/dbutil"
+	"github.com/pakaiwa/pakaiwa/util/dbutil"
 	"go.mau.fi/util/random"
 
 	"github.com/pakaiwa/pakaiwa/proto/waAdv"
