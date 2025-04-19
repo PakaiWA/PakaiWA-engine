@@ -1,4 +1,4 @@
-module github.com/PakaiWA/PakaiWA
+module github.com/pakaiwa/pakaiwa
 
 go 1.23.0
 
