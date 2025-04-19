@@ -18,7 +18,7 @@ import (
 	"strings"
 	"time"
 
-	"go.mau.fi/util/retryafter"
+	"github.com/pakaiwa/pakaiwa/util/retryafter"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 

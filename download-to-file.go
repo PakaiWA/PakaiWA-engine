@@ -18,7 +18,7 @@ import (
 	"time"
 
 	"go.mau.fi/util/fallocate"
-	"go.mau.fi/util/retryafter"
+	"github.com/pakaiwa/pakaiwa/util/retryafter"
 
 	"github.com/pakaiwa/pakaiwa/proto/waMediaTransport"
 	"github.com/pakaiwa/pakaiwa/util/cbcutil"
