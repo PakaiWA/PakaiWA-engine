@@ -1,15 +1,14 @@
 module github.com/pakaiwa/pakaiwa
 
-go 1.23.0
-
-toolchain go1.24.2
+go 1.24.2
 
 require (
 	github.com/google/uuid v1.6.0
-	github.com/gorilla/websocket v1.5.0
+	github.com/gorilla/websocket v1.5.3
 	github.com/rs/zerolog v1.34.0
 	go.mau.fi/libsignal v0.1.2
 	go.mau.fi/util v0.8.6
+	go.mau.fi/whatsmeow v0.0.0-20250417131650-164ddf482526
 	golang.org/x/crypto v0.37.0
 	golang.org/x/net v0.39.0
 	google.golang.org/protobuf v1.36.6
