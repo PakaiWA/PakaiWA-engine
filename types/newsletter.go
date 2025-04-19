@@ -12,7 +12,7 @@ import (
 	"fmt"
 	"time"
 
-	"go.mau.fi/util/jsontime"
+	"github.com/pakaiwa/pakaiwa/util/jsontime"
 
 	"github.com/pakaiwa/pakaiwa/proto/waE2E"
 )
