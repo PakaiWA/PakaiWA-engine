@@ -29,11 +29,11 @@ import (
 	"go.mau.fi/util/random"
 	"google.golang.org/protobuf/proto"
 
-	waBinary "go.mau.fi/whatsmeow/binary"
-	"go.mau.fi/whatsmeow/proto/waCommon"
-	"go.mau.fi/whatsmeow/proto/waE2E"
-	"go.mau.fi/whatsmeow/types"
-	"go.mau.fi/whatsmeow/types/events"
+	waBinary "github.com/pakaiwa/pakaiwa/binary"
+	"github.com/pakaiwa/pakaiwa/proto/waCommon"
+	"github.com/pakaiwa/pakaiwa/proto/waE2E"
+	"github.com/pakaiwa/pakaiwa/types"
+	"github.com/pakaiwa/pakaiwa/types/events"
 )
 
 // GenerateMessageID generates a random string that can be used as a message ID on WhatsApp.

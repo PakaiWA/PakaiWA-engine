@@ -17,12 +17,12 @@ import (
 	"go.mau.fi/util/dbutil"
 	"go.mau.fi/util/random"
 
-	"go.mau.fi/whatsmeow/proto/waAdv"
-	"go.mau.fi/whatsmeow/store"
-	"go.mau.fi/whatsmeow/store/sqlstore/upgrades"
-	"go.mau.fi/whatsmeow/types"
-	"go.mau.fi/whatsmeow/util/keys"
-	waLog "go.mau.fi/whatsmeow/util/log"
+	"github.com/pakaiwa/pakaiwa/proto/waAdv"
+	"github.com/pakaiwa/pakaiwa/store"
+	"github.com/pakaiwa/pakaiwa/store/sqlstore/upgrades"
+	"github.com/pakaiwa/pakaiwa/types"
+	"github.com/pakaiwa/pakaiwa/util/keys"
+	waLog "github.com/pakaiwa/pakaiwa/util/log"
 )
 
 // Container is a wrapper for a SQL database that can contain multiple whatsmeow sessions.

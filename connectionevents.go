@@ -10,10 +10,10 @@ import (
 	"context"
 	"time"
 
-	waBinary "go.mau.fi/whatsmeow/binary"
-	"go.mau.fi/whatsmeow/store"
-	"go.mau.fi/whatsmeow/types"
-	"go.mau.fi/whatsmeow/types/events"
+	waBinary "github.com/pakaiwa/pakaiwa/binary"
+	"github.com/pakaiwa/pakaiwa/store"
+	"github.com/pakaiwa/pakaiwa/types"
+	"github.com/pakaiwa/pakaiwa/types/events"
 )
 
 func (cli *Client) handleStreamError(node *waBinary.Node) {

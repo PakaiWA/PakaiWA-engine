@@ -1,9 +1,9 @@
 
 DwaLidMigrationSyncPayload/WAWebProtobufLidMigrationSyncPayload.proto$WAWebProtobufLidMigrationSyncPayload"e
 LIDMigrationMapping
-pn (Rpn 
+pn (Rpn
 assignedLid (RassignedLid
-	latestLid (R	latestLid"Á
+	latestLid (R	latestLid"ï¿½
 LIDMigrationMappingSyncPayloadc
 pnToLidMappings (29.WAWebProtobufLidMigrationSyncPayload.LIDMigrationMappingRpnToLidMappings:
-chatDbMigrationTimestamp (RchatDbMigrationTimestampB5Z3go.mau.fi/whatsmeow/proto/waLidMigrationSyncPayload
+chatDbMigrationTimestamp (RchatDbMigrationTimestampB5Z3github.com/pakaiwa/pakaiwa/proto/waLidMigrationSyncPayload

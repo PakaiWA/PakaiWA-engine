@@ -1,8 +1,8 @@
 package waConsumerApplication
 
 import (
-	"go.mau.fi/whatsmeow/proto/armadilloutil"
-	"go.mau.fi/whatsmeow/proto/waMediaTransport"
+	"github.com/pakaiwa/pakaiwa/proto/armadilloutil"
+	"github.com/pakaiwa/pakaiwa/proto/waMediaTransport"
 )
 
 type ConsumerApplication_Content_Content = isConsumerApplication_Content_Content

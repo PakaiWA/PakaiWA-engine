@@ -17,8 +17,8 @@ import (
 
 	"go.mau.fi/util/dbutil"
 
-	"go.mau.fi/whatsmeow/store"
-	"go.mau.fi/whatsmeow/types"
+	"github.com/pakaiwa/pakaiwa/store"
+	"github.com/pakaiwa/pakaiwa/types"
 )
 
 type CachedLIDMap struct {

@@ -1,10 +1,10 @@
 package waMsgApplication
 
 import (
-	"go.mau.fi/whatsmeow/proto/armadilloutil"
-	"go.mau.fi/whatsmeow/proto/waArmadilloApplication"
-	"go.mau.fi/whatsmeow/proto/waConsumerApplication"
-	"go.mau.fi/whatsmeow/proto/waMultiDevice"
+	"github.com/pakaiwa/pakaiwa/proto/armadilloutil"
+	"github.com/pakaiwa/pakaiwa/proto/waArmadilloApplication"
+	"github.com/pakaiwa/pakaiwa/proto/waConsumerApplication"
+	"github.com/pakaiwa/pakaiwa/proto/waMultiDevice"
 )
 
 const (
