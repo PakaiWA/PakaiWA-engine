@@ -60,3 +60,6 @@ Things that are not yet implemented:
 | `util/dbutil/upgrades_test.go`               | [mautrix/go-util](https://github.com/mautrix/go-util/tree/main/dbutil) | MPL-2.0        | -               | Tidak dimodifikasi | 569609e   |
 | `util/dbutil/upgradetable.go`                | [mautrix/go-util](https://github.com/mautrix/go-util/tree/main/dbutil) | MPL-2.0        | -               | Tidak dimodifikasi | 569609e   |
 | `util/dbutil/upgradetable_test.g`            | [mautrix/go-util](https://github.com/mautrix/go-util/tree/main/dbutil) | MPL-2.0        | -               | Tidak dimodifikasi | 569609e   |
+| `util/random/bytes.go`                       | [mautrix/go-util](https://github.com/mautrix/go-util/tree/main/random) | MPL-2.0        | -               | Tidak dimodifikasi | 569609e   |
+| `util/random/string.go`                      | [mautrix/go-util](https://github.com/mautrix/go-util/tree/main/random) | MPL-2.0        | -               | Tidak dimodifikasi | 569609e   |
+| `util/random/string_test.go`                 | [mautrix/go-util](https://github.com/mautrix/go-util/tree/main/random) | MPL-2.0        | -               | Tidak dimodifikasi | 569609e   |
