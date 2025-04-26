@@ -16,6 +16,7 @@ import (
 	"sync"
 
 	"github.com/pakaiwa/pakaiwa/util/dbutil"
+	"github.com/rs/zerolog"
 
 	"github.com/pakaiwa/pakaiwa/store"
 	"github.com/pakaiwa/pakaiwa/types"
@@ -140,6 +141,13 @@ func (s *CachedLIDMap) PutManyLIDMappings(ctx context.Context, mappings []store.
 	s.lidCacheLock.Lock()
 	defer s.lidCacheLock.Unlock()
 	mappings = slices.DeleteFunc(mappings, func(mapping store.LIDMapping) bool {
+		if mapping.LID.Server != types.HiddenUserServer || mapping.PN.Server != types.DefaultUserServer {
+			zerolog.Ctx(ctx).Debug().
+				Stringer("entry_lid", mapping.LID).
+				Stringer("entry_pn", mapping.PN).
+				Msg("Ignoring invalid entry in PutManyLIDMappings")
+			return true
+		}
 		cachedLID, ok := s.pnToLIDCache[mapping.PN.User]
 		if ok && cachedLID == mapping.LID.User {
 			return true
