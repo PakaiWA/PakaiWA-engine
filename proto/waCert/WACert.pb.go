@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v5.29.3
-// source: waCert/waCert.proto
+// source: waCert/WACert.proto
 
 package waCert
 
@@ -31,7 +31,7 @@ type NoiseCertificate struct {
 
 func (x *NoiseCertificate) Reset() {
 	*x = NoiseCertificate{}
-	mi := &file_waCert_waCert_proto_msgTypes[0]
+	mi := &file_waCert_WACert_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -43,7 +43,7 @@ func (x *NoiseCertificate) String() string {
 func (*NoiseCertificate) ProtoMessage() {}
 
 func (x *NoiseCertificate) ProtoReflect() protoreflect.Message {
-	mi := &file_waCert_waCert_proto_msgTypes[0]
+	mi := &file_waCert_WACert_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -56,7 +56,7 @@ func (x *NoiseCertificate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NoiseCertificate.ProtoReflect.Descriptor instead.
 func (*NoiseCertificate) Descriptor() ([]byte, []int) {
-	return file_waCert_waCert_proto_rawDescGZIP(), []int{0}
+	return file_waCert_WACert_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *NoiseCertificate) GetDetails() []byte {
@@ -83,7 +83,7 @@ type CertChain struct {
 
 func (x *CertChain) Reset() {
 	*x = CertChain{}
-	mi := &file_waCert_waCert_proto_msgTypes[1]
+	mi := &file_waCert_WACert_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -95,7 +95,7 @@ func (x *CertChain) String() string {
 func (*CertChain) ProtoMessage() {}
 
 func (x *CertChain) ProtoReflect() protoreflect.Message {
-	mi := &file_waCert_waCert_proto_msgTypes[1]
+	mi := &file_waCert_WACert_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -108,7 +108,7 @@ func (x *CertChain) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CertChain.ProtoReflect.Descriptor instead.
 func (*CertChain) Descriptor() ([]byte, []int) {
-	return file_waCert_waCert_proto_rawDescGZIP(), []int{1}
+	return file_waCert_WACert_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *CertChain) GetLeaf() *CertChain_NoiseCertificate {
@@ -138,7 +138,7 @@ type NoiseCertificate_Details struct {
 
 func (x *NoiseCertificate_Details) Reset() {
 	*x = NoiseCertificate_Details{}
-	mi := &file_waCert_waCert_proto_msgTypes[2]
+	mi := &file_waCert_WACert_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -150,7 +150,7 @@ func (x *NoiseCertificate_Details) String() string {
 func (*NoiseCertificate_Details) ProtoMessage() {}
 
 func (x *NoiseCertificate_Details) ProtoReflect() protoreflect.Message {
-	mi := &file_waCert_waCert_proto_msgTypes[2]
+	mi := &file_waCert_WACert_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -163,7 +163,7 @@ func (x *NoiseCertificate_Details) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NoiseCertificate_Details.ProtoReflect.Descriptor instead.
 func (*NoiseCertificate_Details) Descriptor() ([]byte, []int) {
-	return file_waCert_waCert_proto_rawDescGZIP(), []int{0, 0}
+	return file_waCert_WACert_proto_rawDescGZIP(), []int{0, 0}
 }
 
 func (x *NoiseCertificate_Details) GetSerial() uint32 {
@@ -211,7 +211,7 @@ type CertChain_NoiseCertificate struct {
 
 func (x *CertChain_NoiseCertificate) Reset() {
 	*x = CertChain_NoiseCertificate{}
-	mi := &file_waCert_waCert_proto_msgTypes[3]
+	mi := &file_waCert_WACert_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -223,7 +223,7 @@ func (x *CertChain_NoiseCertificate) String() string {
 func (*CertChain_NoiseCertificate) ProtoMessage() {}
 
 func (x *CertChain_NoiseCertificate) ProtoReflect() protoreflect.Message {
-	mi := &file_waCert_waCert_proto_msgTypes[3]
+	mi := &file_waCert_WACert_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -236,7 +236,7 @@ func (x *CertChain_NoiseCertificate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CertChain_NoiseCertificate.ProtoReflect.Descriptor instead.
 func (*CertChain_NoiseCertificate) Descriptor() ([]byte, []int) {
-	return file_waCert_waCert_proto_rawDescGZIP(), []int{1, 0}
+	return file_waCert_WACert_proto_rawDescGZIP(), []int{1, 0}
 }
 
 func (x *CertChain_NoiseCertificate) GetDetails() []byte {
@@ -266,7 +266,7 @@ type CertChain_NoiseCertificate_Details struct {
 
 func (x *CertChain_NoiseCertificate_Details) Reset() {
 	*x = CertChain_NoiseCertificate_Details{}
-	mi := &file_waCert_waCert_proto_msgTypes[4]
+	mi := &file_waCert_WACert_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -278,7 +278,7 @@ func (x *CertChain_NoiseCertificate_Details) String() string {
 func (*CertChain_NoiseCertificate_Details) ProtoMessage() {}
 
 func (x *CertChain_NoiseCertificate_Details) ProtoReflect() protoreflect.Message {
-	mi := &file_waCert_waCert_proto_msgTypes[4]
+	mi := &file_waCert_WACert_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -291,7 +291,7 @@ func (x *CertChain_NoiseCertificate_Details) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use CertChain_NoiseCertificate_Details.ProtoReflect.Descriptor instead.
 func (*CertChain_NoiseCertificate_Details) Descriptor() ([]byte, []int) {
-	return file_waCert_waCert_proto_rawDescGZIP(), []int{1, 0, 0}
+	return file_waCert_WACert_proto_rawDescGZIP(), []int{1, 0, 0}
 }
 
 func (x *CertChain_NoiseCertificate_Details) GetSerial() uint32 {
@@ -329,11 +329,11 @@ func (x *CertChain_NoiseCertificate_Details) GetNotAfter() uint64 {
 	return 0
 }
 
-var File_waCert_waCert_proto protoreflect.FileDescriptor
+var File_waCert_WACert_proto protoreflect.FileDescriptor
 
-const file_waCert_waCert_proto_rawDesc = "" +
+const file_waCert_WACert_proto_rawDesc = "" +
 	"\n" +
-	"\x13waCert/waCert.proto\x12\x06WACert\"\xcb\x01\n" +
+	"\x13waCert/WACert.proto\x12\x06WACert\"\xcb\x01\n" +
 	"\x10NoiseCertificate\x12\x18\n" +
 	"\adetails\x18\x01 \x01(\fR\adetails\x12\x1c\n" +
 	"\tsignature\x18\x02 \x01(\fR\tsignature\x1a\x7f\n" +
@@ -357,26 +357,26 @@ const file_waCert_waCert_proto_rawDesc = "" +
 	"\bnotAfter\x18\x05 \x01(\x04R\bnotAfterB)Z'github.com/pakaiwa/pakaiwa/proto/waCert"
 
 var (
-	file_waCert_waCert_proto_rawDescOnce sync.Once
-	file_waCert_waCert_proto_rawDescData []byte
+	file_waCert_WACert_proto_rawDescOnce sync.Once
+	file_waCert_WACert_proto_rawDescData []byte
 )
 
-func file_waCert_waCert_proto_rawDescGZIP() []byte {
-	file_waCert_waCert_proto_rawDescOnce.Do(func() {
-		file_waCert_waCert_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_waCert_waCert_proto_rawDesc), len(file_waCert_waCert_proto_rawDesc)))
+func file_waCert_WACert_proto_rawDescGZIP() []byte {
+	file_waCert_WACert_proto_rawDescOnce.Do(func() {
+		file_waCert_WACert_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_waCert_WACert_proto_rawDesc), len(file_waCert_WACert_proto_rawDesc)))
 	})
-	return file_waCert_waCert_proto_rawDescData
+	return file_waCert_WACert_proto_rawDescData
 }
 
-var file_waCert_waCert_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_waCert_waCert_proto_goTypes = []any{
+var file_waCert_WACert_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_waCert_WACert_proto_goTypes = []any{
 	(*NoiseCertificate)(nil),                   // 0: WACert.NoiseCertificate
 	(*CertChain)(nil),                          // 1: WACert.CertChain
 	(*NoiseCertificate_Details)(nil),           // 2: WACert.NoiseCertificate.Details
 	(*CertChain_NoiseCertificate)(nil),         // 3: WACert.CertChain.NoiseCertificate
 	(*CertChain_NoiseCertificate_Details)(nil), // 4: WACert.CertChain.NoiseCertificate.Details
 }
-var file_waCert_waCert_proto_depIdxs = []int32{
+var file_waCert_WACert_proto_depIdxs = []int32{
 	3, // 0: WACert.CertChain.leaf:type_name -> WACert.CertChain.NoiseCertificate
 	3, // 1: WACert.CertChain.intermediate:type_name -> WACert.CertChain.NoiseCertificate
 	2, // [2:2] is the sub-list for method output_type
@@ -386,26 +386,26 @@ var file_waCert_waCert_proto_depIdxs = []int32{
 	0, // [0:2] is the sub-list for field type_name
 }
 
-func init() { file_waCert_waCert_proto_init() }
-func file_waCert_waCert_proto_init() {
-	if File_waCert_waCert_proto != nil {
+func init() { file_waCert_WACert_proto_init() }
+func file_waCert_WACert_proto_init() {
+	if File_waCert_WACert_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_waCert_waCert_proto_rawDesc), len(file_waCert_waCert_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_waCert_WACert_proto_rawDesc), len(file_waCert_WACert_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_waCert_waCert_proto_goTypes,
-		DependencyIndexes: file_waCert_waCert_proto_depIdxs,
-		MessageInfos:      file_waCert_waCert_proto_msgTypes,
+		GoTypes:           file_waCert_WACert_proto_goTypes,
+		DependencyIndexes: file_waCert_WACert_proto_depIdxs,
+		MessageInfos:      file_waCert_WACert_proto_msgTypes,
 	}.Build()
-	File_waCert_waCert_proto = out.File
-	file_waCert_waCert_proto_goTypes = nil
-	file_waCert_waCert_proto_depIdxs = nil
+	File_waCert_WACert_proto = out.File
+	file_waCert_WACert_proto_goTypes = nil
+	file_waCert_WACert_proto_depIdxs = nil
 }
