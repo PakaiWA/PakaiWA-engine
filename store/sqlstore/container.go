@@ -82,7 +82,7 @@ func NewWithDB(db *sql.DB, dialect string, log waLog.Logger) *Container {
 		panic(err)
 	}
 	wrapped.UpgradeTable = upgrades.Table
-	wrapped.VersionTable = "pakaiwa_version"
+	wrapped.VersionTable = "pakaiwa.version"
 	return NewWithWrappedDB(wrapped, log)
 }
 

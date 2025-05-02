@@ -25,7 +25,7 @@ CREATE TABLE pakaiwa.device (
 	push_name     TEXT NOT NULL DEFAULT ''
 );
 
-CREATE TABLE pakaiwa_identity_keys (
+CREATE TABLE pakaiwa.identity_keys (
 	our_jid  TEXT,
 	their_id TEXT,
 	identity bytea NOT NULL CHECK ( length(identity) = 32 ),
@@ -34,7 +34,7 @@ CREATE TABLE pakaiwa_identity_keys (
 	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE pakaiwa_pre_keys (
+CREATE TABLE pakaiwa.pre_keys (
 	jid      TEXT,
 	key_id   INTEGER          CHECK ( key_id >= 0 AND key_id < 16777216 ),
 	key      bytea   NOT NULL CHECK ( length(key) = 32 ),
@@ -44,7 +44,7 @@ CREATE TABLE pakaiwa_pre_keys (
 	FOREIGN KEY (jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE pakaiwa_sessions (
+CREATE TABLE pakaiwa.sessions (
 	our_jid  TEXT,
 	their_id TEXT,
 	session  bytea,
@@ -53,7 +53,7 @@ CREATE TABLE pakaiwa_sessions (
 	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE pakaiwa_sender_keys (
+CREATE TABLE pakaiwa.sender_keys (
 	our_jid    TEXT,
 	chat_id    TEXT,
 	sender_id  TEXT,
@@ -63,7 +63,7 @@ CREATE TABLE pakaiwa_sender_keys (
 	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE pakaiwa_app_state_sync_keys (
+CREATE TABLE pakaiwa.app_state_sync_keys (
 	jid         TEXT,
 	key_id      bytea,
 	key_data    bytea  NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE pakaiwa_app_state_sync_keys (
 	FOREIGN KEY (jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE pakaiwa_app_state_version (
+CREATE TABLE pakaiwa.app_state_version (
 	jid     TEXT,
 	name    TEXT,
 	version BIGINT NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE pakaiwa_app_state_version (
 	FOREIGN KEY (jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE pakaiwa_app_state_mutation_macs (
+CREATE TABLE pakaiwa.app_state_mutation_macs (
 	jid       TEXT,
 	name      TEXT,
 	version   BIGINT,
@@ -92,7 +92,7 @@ CREATE TABLE pakaiwa_app_state_mutation_macs (
 	value_mac bytea NOT NULL CHECK ( length(value_mac) = 32 ),
 
 	PRIMARY KEY (jid, name, version, index_mac),
-	FOREIGN KEY (jid, name) REFERENCES pakaiwa_app_state_version(jid, name) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (jid, name) REFERENCES pakaiwa.app_state_version(jid, name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE pakaiwa.contacts (
@@ -107,7 +107,7 @@ CREATE TABLE pakaiwa.contacts (
 	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE pakaiwa_chat_settings (
+CREATE TABLE pakaiwa.chat_settings (
 	our_jid       TEXT,
 	chat_jid      TEXT,
 	muted_until   BIGINT  NOT NULL DEFAULT 0,
@@ -118,7 +118,7 @@ CREATE TABLE pakaiwa_chat_settings (
 	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE pakaiwa_message_secrets (
+CREATE TABLE pakaiwa.message_secrets (
 	our_jid    TEXT,
 	chat_jid   TEXT,
 	sender_jid TEXT,
@@ -129,7 +129,7 @@ CREATE TABLE pakaiwa_message_secrets (
 	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE pakaiwa_privacy_tokens (
+CREATE TABLE pakaiwa.privacy_tokens (
 	our_jid   TEXT,
 	their_jid TEXT,
 	token     bytea  NOT NULL,
@@ -137,7 +137,7 @@ CREATE TABLE pakaiwa_privacy_tokens (
 	PRIMARY KEY (our_jid, their_jid)
 );
 
-CREATE TABLE pakaiwa_lid_map (
+CREATE TABLE pakaiwa.lid_map (
 	lid TEXT PRIMARY KEY,
 	pn  TEXT UNIQUE NOT NULL
 );

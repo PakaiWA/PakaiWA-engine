@@ -33,12 +33,8 @@ var ErrForeignTables = errors.New("the database contains foreign tables")
 var ErrNotOwned = errors.New("the database is owned by")
 var ErrUnsupportedDialect = errors.New("unsupported database dialect")
 
-func DangerousInternalUpgradeVersionTable(ctx context.Context, db *Database) error {
-	return db.upgradeVersionTable(ctx)
-}
-
 func (db *Database) upgradeVersionTable(ctx context.Context) error {
-	if compatColumnExists, err := db.ColumnExists(ctx, db.VersionTable, "compat"); err != nil {
+	if compatColumnExists, err := db.ColumnExists(ctx, "version", "compat"); err != nil {
 		return fmt.Errorf("failed to check if version table is up to date: %w", err)
 	} else if !compatColumnExists {
 		if tableExists, err := db.TableExists(ctx, db.VersionTable); err != nil {
@@ -76,37 +72,15 @@ func (db *Database) getVersion(ctx context.Context) (version, compat int, err er
 	return
 }
 
-const (
-	tableExistsPostgres = "SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_name=$1)"
-	tableExistsSQLite   = "SELECT EXISTS(SELECT 1 FROM sqlite_master WHERE type='table' AND tbl_name=?1)"
-)
-
 func (db *Database) TableExists(ctx context.Context, table string) (exists bool, err error) {
-	switch db.Dialect {
-	case SQLite:
-		err = db.QueryRow(ctx, tableExistsSQLite, table).Scan(&exists)
-	case Postgres:
-		err = db.QueryRow(ctx, tableExistsPostgres, table).Scan(&exists)
-	default:
-		err = ErrUnsupportedDialect
-	}
+	const tableExistsPostgres = "SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_name=$1)"
+	err = db.QueryRow(ctx, tableExistsPostgres, table).Scan(&exists)
 	return
 }
 
-const (
-	columnExistsPostgres = "SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_name=$1 AND column_name=$2)"
-	columnExistsSQLite   = "SELECT EXISTS(SELECT 1 FROM pragma_table_info(?1) WHERE name=?2)"
-)
-
 func (db *Database) ColumnExists(ctx context.Context, table, column string) (exists bool, err error) {
-	switch db.Dialect {
-	case SQLite:
-		err = db.QueryRow(ctx, columnExistsSQLite, table, column).Scan(&exists)
-	case Postgres:
-		err = db.QueryRow(ctx, columnExistsPostgres, table, column).Scan(&exists)
-	default:
-		err = ErrUnsupportedDialect
-	}
+	const columnExistsPostgres = "SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_name=$1 AND column_name=$2)"
+	err = db.QueryRow(ctx, columnExistsPostgres, table, column).Scan(&exists)
 	return
 }
 

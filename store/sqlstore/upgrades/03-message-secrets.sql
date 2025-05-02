@@ -1,5 +1,5 @@
 -- v3: Add message secrets table
-CREATE TABLE pakaiwa_message_secrets (
+CREATE TABLE pakaiwa.message_secrets (
 	our_jid    TEXT,
 	chat_jid   TEXT,
 	sender_jid TEXT,

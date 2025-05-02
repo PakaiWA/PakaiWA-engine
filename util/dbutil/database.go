@@ -170,7 +170,7 @@ func NewWithDB(db *sql.DB, rawDialect string) (*Database, error) {
 		Log:     NoopLogger,
 
 		IgnoreForeignTables: true,
-		VersionTable:        "version",
+		VersionTable:        "pakaiwa.version",
 
 		txnCtxKey:      contextKey(nextContextKeyDatabaseTransaction.Add(1)),
 		txnDeadlockMap: exsync.NewSet[int64](),

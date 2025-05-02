@@ -26,23 +26,17 @@ func makeTable() (tbl UpgradeTable) {
 }
 
 func expectVersionCheck(dialect Dialect, mock sqlmock.Sqlmock, returnVersion, returnCompat int) {
-	if dialect == Postgres {
-		mock.ExpectQuery(columnExistsPostgres).
-			WithArgs("version", "compat").
-			WillReturnRows(sqlmock.NewRows([]string{"exists"}).AddRow(true))
-	} else if dialect == SQLite {
-		mock.ExpectQuery(columnExistsSQLite).
-			WithArgs("version", "compat").
-			WillReturnRows(sqlmock.NewRows([]string{"exists"}).AddRow(true))
-	}
-	mock.ExpectQuery("SELECT version, compat FROM version LIMIT 1").
+	mock.ExpectQuery(columnExistsPostgres).
+		WithArgs("version", "compat").
+		WillReturnRows(sqlmock.NewRows([]string{"exists"}).AddRow(true))
+	mock.ExpectQuery("SELECT version, compat FROM pakaiwa.version LIMIT 1").
 		WillReturnRows(sqlmock.NewRows([]string{"version", "compat"}).AddRow(returnVersion, returnCompat))
 }
 
 func expectVersionBump(dialect Dialect, mock sqlmock.Sqlmock, toVersion, toCompat int) {
-	mock.ExpectExec("DELETE FROM version").
+	mock.ExpectExec("DELETE FROM pakaiwa.version").
 		WillReturnResult(sqlmock.NewResult(0, 1))
-	q := "INSERT INTO version (version, compat) VALUES ($1, $2)"
+	q := "INSERT INTO pakaiwa.version (version, compat) VALUES ($1, $2)"
 	if dialect == SQLite {
 		q = strings.ReplaceAll(q, "$1", "?1")
 		q = strings.ReplaceAll(q, "$2", "?2")
