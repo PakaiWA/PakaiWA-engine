@@ -519,27 +519,27 @@ func (s *SQLStore) GetAppStateMutationMAC(name string, indexMAC []byte) (valueMA
 
 const (
 	putContactNameQuery = `
-		INSERT INTO pakaiwa_contacts (our_jid, their_jid, first_name, full_name) VALUES ($1, $2, $3, $4)
+		INSERT INTO pakaiwa.contacts (our_jid, their_jid, first_name, full_name) VALUES ($1, $2, $3, $4)
 		ON CONFLICT (our_jid, their_jid) DO UPDATE SET first_name=excluded.first_name, full_name=excluded.full_name
 	`
 	putManyContactNamesQuery = `
-		INSERT INTO pakaiwa_contacts (our_jid, their_jid, first_name, full_name)
+		INSERT INTO pakaiwa.contacts (our_jid, their_jid, first_name, full_name)
 		VALUES %s
 		ON CONFLICT (our_jid, their_jid) DO UPDATE SET first_name=excluded.first_name, full_name=excluded.full_name
 	`
 	putPushNameQuery = `
-		INSERT INTO pakaiwa_contacts (our_jid, their_jid, push_name) VALUES ($1, $2, $3)
+		INSERT INTO pakaiwa.contacts (our_jid, their_jid, push_name) VALUES ($1, $2, $3)
 		ON CONFLICT (our_jid, their_jid) DO UPDATE SET push_name=excluded.push_name
 	`
 	putBusinessNameQuery = `
-		INSERT INTO pakaiwa_contacts (our_jid, their_jid, business_name) VALUES ($1, $2, $3)
+		INSERT INTO pakaiwa.contacts (our_jid, their_jid, business_name) VALUES ($1, $2, $3)
 		ON CONFLICT (our_jid, their_jid) DO UPDATE SET business_name=excluded.business_name
 	`
 	getContactQuery = `
-		SELECT first_name, full_name, push_name, business_name FROM pakaiwa_contacts WHERE our_jid=$1 AND their_jid=$2
+		SELECT first_name, full_name, push_name, business_name FROM pakaiwa.contacts WHERE our_jid=$1 AND their_jid=$2
 	`
 	getAllContactsQuery = `
-		SELECT their_jid, first_name, full_name, push_name, business_name FROM pakaiwa_contacts WHERE our_jid=$1
+		SELECT their_jid, first_name, full_name, push_name, business_name FROM pakaiwa.contacts WHERE our_jid=$1
 	`
 )
 

@@ -95,7 +95,7 @@ CREATE TABLE pakaiwa_app_state_mutation_macs (
 	FOREIGN KEY (jid, name) REFERENCES pakaiwa_app_state_version(jid, name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE pakaiwa_contacts (
+CREATE TABLE pakaiwa.contacts (
 	our_jid       TEXT,
 	their_jid     TEXT,
 	first_name    TEXT,
