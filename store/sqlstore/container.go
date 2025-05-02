@@ -3,6 +3,10 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// Modified by KAnggara75 on 2025-04-26, Sat, 21:36
+// Changes: use database just PSQL
+//
+// Original file from https://github.com/tulir/whatsmeow/blob/main/store/sqlstore/container.go licensed under MPL-2.0
 
 package sqlstore
 
@@ -14,15 +18,14 @@ import (
 	mathRand "math/rand/v2"
 
 	"github.com/google/uuid"
-	"github.com/pakaiwa/pakaiwa/util/dbutil"
-	"github.com/pakaiwa/pakaiwa/util/random"
-
+	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/pakaiwa/pakaiwa/proto/waAdv"
 	"github.com/pakaiwa/pakaiwa/store"
 	"github.com/pakaiwa/pakaiwa/store/sqlstore/upgrades"
-	"github.com/pakaiwa/pakaiwa/types"
+	"github.com/pakaiwa/pakaiwa/util/dbutil"
 	"github.com/pakaiwa/pakaiwa/util/keys"
 	waLog "github.com/pakaiwa/pakaiwa/util/log"
+	"github.com/pakaiwa/pakaiwa/util/random"
 )
 
 // Container is a wrapper for a SQL database that can contain multiple pakaiwa sessions.
@@ -38,19 +41,15 @@ var _ store.DeviceContainer = (*Container)(nil)
 
 // New connects to the given SQL database and wraps it in a Container.
 //
-// Only SQLite and Postgres are currently fully supported.
+// Only Postgres are supported.
 //
 // The logger can be nil and will default to a no-op logger.
-//
-// When using SQLite, it's strongly recommended to enable foreign keys by adding `?_foreign_keys=true`:
-//
-//	container, err := sqlstore.New("sqlite3", "file:yoursqlitefile.db?_foreign_keys=on", nil)
-func New(dialect, address string, log waLog.Logger) (*Container, error) {
-	db, err := sql.Open(dialect, address)
+func New(address string, log waLog.Logger) (*Container, error) {
+	db, err := sql.Open("pgx", address)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open database: %w", err)
 	}
-	container := NewWithDB(db, dialect, log)
+	container := NewWithDB(db, "pgx", log)
 	err = container.Upgrade()
 	if err != nil {
 		return nil, fmt.Errorf("failed to upgrade database: %w", err)

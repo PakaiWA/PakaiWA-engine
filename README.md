@@ -5,6 +5,9 @@ pakaiwa is a Go library for the WhatsApp web multidevice API.
 
 For questions about the WhatsApp protocol (like how to send a specific type of message), you can also use the [WhatsApp protocol Q&A] section on GitHub discussions.
 
+```shell
+protoc -I proto -I proto/waCommon  --go_out=./proto/ --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative proto/*/*.proto
+```
 [WhatsApp protocol Q&A]: https://github.com/pakaiwa/pakaiwa/discussions/categories/whatsapp-protocol-q-a
 
 ## Features
