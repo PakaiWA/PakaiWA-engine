@@ -1,5 +1,5 @@
 -- v0 -> v8 (compatible with v8+): Latest schema
-CREATE TABLE pakaiwa_device (
+CREATE TABLE pakaiwa.device (
 	jid TEXT PRIMARY KEY,
 	lid TEXT,
 
@@ -31,7 +31,7 @@ CREATE TABLE pakaiwa_identity_keys (
 	identity bytea NOT NULL CHECK ( length(identity) = 32 ),
 
 	PRIMARY KEY (our_jid, their_id),
-	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE pakaiwa_pre_keys (
@@ -41,7 +41,7 @@ CREATE TABLE pakaiwa_pre_keys (
 	uploaded BOOLEAN NOT NULL,
 
 	PRIMARY KEY (jid, key_id),
-	FOREIGN KEY (jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE pakaiwa_sessions (
@@ -50,7 +50,7 @@ CREATE TABLE pakaiwa_sessions (
 	session  bytea,
 
 	PRIMARY KEY (our_jid, their_id),
-	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE pakaiwa_sender_keys (
@@ -60,7 +60,7 @@ CREATE TABLE pakaiwa_sender_keys (
 	sender_key bytea NOT NULL,
 
 	PRIMARY KEY (our_jid, chat_id, sender_id),
-	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE pakaiwa_app_state_sync_keys (
@@ -71,7 +71,7 @@ CREATE TABLE pakaiwa_app_state_sync_keys (
 	fingerprint bytea  NOT NULL,
 
 	PRIMARY KEY (jid, key_id),
-	FOREIGN KEY (jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE pakaiwa_app_state_version (
@@ -81,7 +81,7 @@ CREATE TABLE pakaiwa_app_state_version (
 	hash    bytea  NOT NULL CHECK ( length(hash) = 128 ),
 
 	PRIMARY KEY (jid, name),
-	FOREIGN KEY (jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE pakaiwa_app_state_mutation_macs (
@@ -104,7 +104,7 @@ CREATE TABLE pakaiwa.contacts (
 	business_name TEXT,
 
 	PRIMARY KEY (our_jid, their_jid),
-	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE pakaiwa_chat_settings (
@@ -115,7 +115,7 @@ CREATE TABLE pakaiwa_chat_settings (
 	archived      BOOLEAN NOT NULL DEFAULT false,
 
 	PRIMARY KEY (our_jid, chat_jid),
-	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE pakaiwa_message_secrets (
@@ -126,7 +126,7 @@ CREATE TABLE pakaiwa_message_secrets (
 	key        bytea NOT NULL,
 
 	PRIMARY KEY (our_jid, chat_jid, sender_jid, message_id),
-	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE pakaiwa_privacy_tokens (

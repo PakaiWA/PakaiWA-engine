@@ -7,5 +7,5 @@ CREATE TABLE pakaiwa_message_secrets (
 	key        bytea NOT NULL,
 
 	PRIMARY KEY (our_jid, chat_jid, sender_jid, message_id),
-	FOREIGN KEY (our_jid) REFERENCES pakaiwa_device(jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (our_jid) REFERENCES pakaiwa.device(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );

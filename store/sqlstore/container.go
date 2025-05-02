@@ -117,7 +117,7 @@ SELECT jid, lid, registration_id, noise_key, identity_key,
        signed_pre_key, signed_pre_key_id, signed_pre_key_sig,
        adv_key, adv_details, adv_account_sig, adv_account_sig_key, adv_device_sig,
        platform, business_name, push_name, facebook_uuid
-FROM pakaiwa_device
+FROM pakaiwa.device
 `
 
 const getDeviceQuery = getAllDevicesQuery + " WHERE jid=$1"
@@ -201,7 +201,7 @@ func (c *Container) GetDevice(jid types.JID) (*store.Device, error) {
 
 const (
 	insertDeviceQuery = `
-		INSERT INTO pakaiwa_device (jid, lid, registration_id, noise_key, identity_key,
+		INSERT INTO pakaiwa.device (jid, lid, registration_id, noise_key, identity_key,
 									  signed_pre_key, signed_pre_key_id, signed_pre_key_sig,
 									  adv_key, adv_details, adv_account_sig, adv_account_sig_key, adv_device_sig,
 									  platform, business_name, push_name, facebook_uuid)
@@ -212,7 +212,7 @@ const (
 				business_name=excluded.business_name,
 				push_name=excluded.push_name
 	`
-	deleteDeviceQuery = `DELETE FROM pakaiwa_device WHERE jid=$1`
+	deleteDeviceQuery = `DELETE FROM pakaiwa.device WHERE jid=$1`
 )
 
 // NewDevice creates a new device in this database.
