@@ -3,8 +3,9 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
+//
+// package pakaiwa implements a client for interacting with the WhatsApp web multi device API.
 
-// package pakaiwa implements a client for interacting with the WhatsApp web multidevice API.
 package pakaiwa
 
 import (
@@ -187,7 +188,7 @@ type MessengerConfig struct {
 }
 
 // Size of buffer for the channel that all incoming XML nodes go through.
-// In general it shouldn't go past a few buffered messages, but the channel is big to be safe.
+// In general, it shouldn't go past a few buffered messages, but the channel is big to be safe.
 const handlerQueueSize = 2048
 
 // NewClient initializes a new WhatsApp web client.
@@ -196,10 +197,6 @@ const handlerQueueSize = 2048
 //
 // The device store must be set. A default SQL-backed implementation is available in the store/sqlstore package.
 //
-//	container, err := sqlstore.New("sqlite3", "file:yoursqlitefile.db?_foreign_keys=on", nil)
-//	if err != nil {
-//		panic(err)
-//	}
 //	// If you want multiple sessions, remember their JIDs and use .GetDevice(jid) or .GetAllDevices() instead.
 //	deviceStore, err := container.GetFirstDevice()
 //	if err != nil {
