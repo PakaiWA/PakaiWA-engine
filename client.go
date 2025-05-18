@@ -288,7 +288,7 @@ func (cli *Client) SetProxyAddress(addr string, opts ...SetProxyOptions) error {
 
 type Proxy = func(*http.Request) (*url.URL, error)
 
-// SetProxy sets a HTTP proxy to use for WhatsApp web websocket connections and media uploads/downloads.
+// SetProxy sets an HTTP proxy to use for WhatsApp web websocket connections and media uploads/downloads.
 //
 // Must be called before Connect() to take effect in the websocket connection.
 // If you want to change the proxy after connecting, you must call Disconnect() and then Connect() again manually.

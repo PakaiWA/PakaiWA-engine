@@ -85,7 +85,7 @@ func (db *Database) ColumnExists(ctx context.Context, table, column string) (exi
 }
 
 const createOwnerTable = `
-CREATE TABLE IF NOT EXISTS database_owner (
+CREATE TABLE IF NOT EXISTS pakaiwa.database_owner (
 	key   INTEGER PRIMARY KEY DEFAULT 0,
 	owner TEXT NOT NULL
 )
@@ -109,8 +109,8 @@ func (db *Database) checkDatabaseOwner(ctx context.Context) error {
 	}
 	if _, err := db.Exec(ctx, createOwnerTable); err != nil {
 		return fmt.Errorf("failed to ensure database owner table exists: %w", err)
-	} else if err = db.QueryRow(ctx, "SELECT owner FROM database_owner WHERE key=0").Scan(&owner); errors.Is(err, sql.ErrNoRows) {
-		_, err = db.Exec(ctx, "INSERT INTO database_owner (key, owner) VALUES (0, $1)", db.Owner)
+	} else if err = db.QueryRow(ctx, "SELECT owner FROM pakaiwa.database_owner WHERE key=0").Scan(&owner); errors.Is(err, sql.ErrNoRows) {
+		_, err = db.Exec(ctx, "INSERT INTO pakaiwa.database_owner (key, owner) VALUES (0, $1)", db.Owner)
 		if err != nil {
 			return fmt.Errorf("failed to insert database owner: %w", err)
 		}
