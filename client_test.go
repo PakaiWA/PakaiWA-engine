@@ -3,21 +3,33 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// Modified by KAnggara75 on 2025-04-26, Sat, 21:38
+// Changes: database
+//
+// Original file from https://github.com/tulir/whatsmeow/blob/main/client_test.go licensed under MPL-2.0
 
 package pakaiwa_test
 
 import (
 	"context"
 	"fmt"
-	"os"
-	"os/signal"
-	"syscall"
-
+	"github.com/KAnggara75/scc2go"
+	"github.com/mdp/qrterminal/v3"
 	"github.com/pakaiwa/pakaiwa"
 	"github.com/pakaiwa/pakaiwa/store/sqlstore"
 	"github.com/pakaiwa/pakaiwa/types/events"
 	waLog "github.com/pakaiwa/pakaiwa/util/log"
+	"github.com/spf13/viper"
+
+	"os"
+	"os/signal"
+	"syscall"
+	"testing"
 )
+
+func init() {
+	scc2go.GetEnv(os.Getenv("SCC_URL"), os.Getenv("AUTH"))
+}
 
 func eventHandler(evt interface{}) {
 	switch v := evt.(type) {
@@ -26,21 +38,23 @@ func eventHandler(evt interface{}) {
 	}
 }
 
-func Example() {
-	// |------------------------------------------------------------------------------------------------------|
-	// | NOTE: You must also import the appropriate DB connector, e.g. github.com/mattn/go-sqlite3 for SQLite |
-	// |------------------------------------------------------------------------------------------------------|
+func getDB() string {
+	return viper.GetString("db.pakaiwa.host")
+}
 
+func TestExample(t *testing.T) {
 	dbLog := waLog.Stdout("Database", "DEBUG", true)
-	container, err := sqlstore.New("sqlite3", "file:examplestore.db?_foreign_keys=on", dbLog)
+	container, err := sqlstore.New(getDB(), dbLog)
 	if err != nil {
 		panic(err)
 	}
+
 	// If you want multiple sessions, remember their JIDs and use .GetDevice(jid) or .GetAllDevices() instead.
 	deviceStore, err := container.GetFirstDevice()
 	if err != nil {
 		panic(err)
 	}
+
 	clientLog := waLog.Stdout("Client", "DEBUG", true)
 	client := pakaiwa.NewClient(deviceStore, clientLog)
 	client.AddEventHandler(eventHandler)
@@ -57,6 +71,7 @@ func Example() {
 				// Render the QR code here
 				// e.g. qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
 				// or just manually `echo 2@... | qrencode -t ansiutf8` in a terminal
+				qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
 				fmt.Println("QR code:", evt.Code)
 			} else {
 				fmt.Println("Login event:", evt.Event)
