@@ -44,13 +44,14 @@ func getDB() string {
 
 func TestExample(t *testing.T) {
 	dbLog := waLog.Stdout("Database", "DEBUG", true)
-	container, err := sqlstore.New(getDB(), dbLog)
+	ctx := context.Background()
+	container, err := sqlstore.New(ctx, getDB(), dbLog)
 	if err != nil {
 		panic(err)
 	}
 
 	// If you want multiple sessions, remember their JIDs and use .GetDevice(jid) or .GetAllDevices() instead.
-	deviceStore, err := container.GetFirstDevice()
+	deviceStore, err := container.GetFirstDevice(ctx)
 	if err != nil {
 		panic(err)
 	}

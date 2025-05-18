@@ -8,7 +8,7 @@ package pakaiwa
 
 import (
 	"context"
-	"math/rand"
+	"math/rand/v2"
 	"time"
 
 	"github.com/pakaiwa/pakaiwa/types"
@@ -31,7 +31,7 @@ func (cli *Client) keepAliveLoop(ctx context.Context) {
 	lastSuccess := time.Now()
 	var errorCount int
 	for {
-		interval := rand.Int63n(KeepAliveIntervalMax.Milliseconds()-KeepAliveIntervalMin.Milliseconds()) + KeepAliveIntervalMin.Milliseconds()
+		interval := rand.Int64N(KeepAliveIntervalMax.Milliseconds()-KeepAliveIntervalMin.Milliseconds()) + KeepAliveIntervalMin.Milliseconds()
 		select {
 		case <-time.After(time.Duration(interval) * time.Millisecond):
 			isSuccess, shouldContinue := cli.sendKeepAlive(ctx)

@@ -1,4 +1,5 @@
 -- v0 -> v8 (compatible with v8+): Latest schema
+-- v0 -> v9 (compatible with v8+): Latest schema
 CREATE TABLE pakaiwa.device (
 	jid TEXT PRIMARY KEY,
 	lid TEXT,
