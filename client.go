@@ -74,7 +74,9 @@ type Client struct {
 	// the client will not attempt to reconnect. The number of retries can be read from AutoReconnectErrors.
 	AutoReconnectHook func(error) bool
 	// If SynchronousAck is set, acks for messages will only be sent after all event handlers return.
-	SynchronousAck bool
+	SynchronousAck             bool
+	EnableDecryptedEventBuffer bool
+	lastDecryptedBufferClear   time.Time
 
 	DisableLoginAutoReconnect bool
 
@@ -574,7 +576,7 @@ func (cli *Client) unlockedDisconnect() {
 //
 // Note that this will not emit any events. The LoggedOut event is only used for external logouts
 // (triggered by the user from the main device or by WhatsApp servers).
-func (cli *Client) Logout() error {
+func (cli *Client) Logout(ctx context.Context) error {
 	if cli == nil {
 		return ErrClientIsNil
 	} else if cli.MessengerConfig != nil {
@@ -600,7 +602,7 @@ func (cli *Client) Logout() error {
 		return fmt.Errorf("error sending logout request: %w", err)
 	}
 	cli.Disconnect()
-	err = cli.Store.Delete()
+	err = cli.Store.Delete(ctx)
 	if err != nil {
 		return fmt.Errorf("error deleting data from store: %w", err)
 	}
