@@ -28,7 +28,7 @@ import (
 )
 
 func init() {
-	scc2go.GetEnv(os.Getenv("SCC_URL"), os.Getenv("AUTH"))
+	scc2go.GetEnv(os.Getenv("SCC_URL"), os.Getenv("AUTH"), true)
 }
 
 func eventHandler(evt interface{}) {
