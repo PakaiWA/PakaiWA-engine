@@ -21,6 +21,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
+	"github.com/pakaiwa/pakaiwa/util/exhttp"
 	"github.com/pakaiwa/pakaiwa/util/random"
 	"golang.org/x/net/proxy"
 
@@ -68,6 +69,7 @@ type Client struct {
 	isLoggedIn            atomic.Bool
 	expectedDisconnect    atomic.Bool
 	EnableAutoReconnect   bool
+	InitialAutoReconnect  bool
 	LastSuccessfulConnect time.Time
 	AutoReconnectErrors   int
 	// AutoReconnectHook is called when auto-reconnection fails. If the function returns false,
@@ -322,7 +324,6 @@ func (cli *Client) SetProxy(proxy Proxy, opts ...SetProxyOptions) {
 	if !opt.NoMedia {
 		transport := cli.http.Transport.(*http.Transport)
 		transport.Proxy = proxy
-		transport.Dial = nil
 		transport.DialContext = nil
 	}
 }
@@ -349,7 +350,6 @@ func (cli *Client) SetSOCKSProxy(px proxy.Dialer, opts ...SetProxyOptions) {
 	if !opt.NoMedia {
 		transport := cli.http.Transport.(*http.Transport)
 		transport.Proxy = nil
-		transport.Dial = cli.socksProxy.Dial
 		contextDialer, ok := cli.socksProxy.(proxy.ContextDialer)
 		if ok {
 			transport.DialContext = contextDialer.DialContext
@@ -420,6 +420,17 @@ func (cli *Client) SetWSDialer(dialer *websocket.Dialer) {
 // Connect connects the client to the WhatsApp web websocket. After connection, it will either
 // authenticate if there's data in the device store, or emit a QREvent to set up a new link.
 func (cli *Client) Connect() error {
+	err := cli.connect()
+	if exhttp.IsNetworkError(err) && cli.InitialAutoReconnect && cli.EnableAutoReconnect {
+		cli.Log.Errorf("Initial connection failed but reconnecting in background")
+		go cli.dispatchEvent(&events.Disconnected{})
+		go cli.autoReconnect()
+		return nil
+	}
+	return err
+}
+
+func (cli *Client) connect() error {
 	if cli == nil {
 		return ErrClientIsNil
 	}
@@ -518,7 +529,7 @@ func (cli *Client) autoReconnect() {
 		cli.Log.Debugf("Automatically reconnecting after %v", autoReconnectDelay)
 		cli.AutoReconnectErrors++
 		time.Sleep(autoReconnectDelay)
-		err := cli.Connect()
+		err := cli.connect()
 		if errors.Is(err, ErrAlreadyConnected) {
 			cli.Log.Debugf("Connect() said we're already connected after autoreconnect sleep")
 			return
@@ -653,7 +664,7 @@ func (cli *Client) AddEventHandler(handler EventHandler) uint32 {
 //
 // N.B. Do not run this directly from an event handler. That would cause a deadlock because the
 // event dispatcher holds a read lock on the event handler list, and this method wants a write lock
-// on the same list. Instead run it in a goroutine:
+// on the same list. Instead, run it in a goroutine:
 //
 //	func (mycli *MyClient) myEventHandler(evt interface{}) {
 //		if noLongerWantEvents {
