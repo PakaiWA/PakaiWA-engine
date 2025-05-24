@@ -3,6 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/store/sqlstore/upgrades/00-latest-schema.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/store/sqlstore/upgrades/03-message-secrets.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/store/sqlstore/upgrades/09-decryption-buffer.sql" dialect="PostgreSQL" />
     <file url="PROJECT" dialect="PostgreSQL" />
   </component>
 </project>
